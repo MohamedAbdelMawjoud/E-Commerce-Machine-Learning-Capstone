@@ -2,303 +2,278 @@
 
 ## 📌 Project Overview
 
-This project is an end-to-end Machine Learning capstone project built on an e-commerce dataset.
+This project is a complete Machine Learning capstone project built on an e-commerce dataset.
 
-The main objective was to transform raw e-commerce data into meaningful analytical features and build Machine Learning models that can support real-world business decisions.
-
-The project covers the complete Machine Learning workflow:
-
-- Data Understanding
-- Data Cleaning
-- Data Integration
-- Data Aggregation
-- Exploratory Data Analysis (EDA)
-- Feature Engineering
-- Feature Selection
-- Data Leakage Checking
-- Train/Test Split
-- Encoding & Preprocessing
-- Model Training
-- Model Comparison
-- Hyperparameter Tuning
-- Model Evaluation
-- Business Insights
-
----
-
-# 🎯 Business Objectives
+The main objective was to transform raw e-commerce transactional data into a clean, analysis-ready dataset, perform Exploratory Data Analysis (EDA), engineer meaningful features, and build Machine Learning models to solve real-world business problems.
 
 The project focuses on two main predictive tasks:
 
-### Model 2 — Delivery Delay Prediction
+1. **Delivery Delay Prediction** — Classification
+2. **Customer Rating Prediction** — Regression
 
-A binary classification model that predicts whether an order will be delivered late.
+The project follows a complete end-to-end Machine Learning workflow, starting from raw data ingestion and data integration and ending with model evaluation, hyperparameter tuning, visualization, and business interpretation.
 
-**Target:**
+---
+
+## 🎯 Business Objectives
+
+The project addresses two important business questions:
+
+### 1. Delivery Delay Prediction
+
+Can we predict whether an order will be delivered late?
+
+This can help an e-commerce company:
+
+- Identify high-risk deliveries early.
+- Improve logistics planning.
+- Monitor delivery performance.
+- Allocate resources more efficiently.
+- Improve customer satisfaction.
+
+### 2. Customer Rating Prediction
+
+Can we predict the rating a customer is likely to give to an order?
+
+This can help the business:
+
+- Identify orders at risk of receiving low ratings.
+- Understand factors affecting customer satisfaction.
+- Prioritize problematic deliveries.
+- Improve customer experience.
+
+---
+
+# 📂 Dataset
+
+The project uses multiple e-commerce datasets containing information about:
+
+- Customers
+- Orders
+- Order Items
+- Payments
+- Products
+- Sellers
+- Reviews
+
+The datasets were integrated using common identifiers such as:
+
+- `customer_id`
+- `order_id`
+- `product_id`
+- `seller_id`
+
+The final master dataset was created at the **order level**, allowing customer, product, payment, seller, pricing, and delivery information to be analyzed together.
+
+---
+
+# 🔄 Project Workflow
+
+The project followed the following pipeline:
+
+Raw Data  
+↓  
+Data Loading  
+↓  
+Data Inspection  
+↓  
+Data Cleaning  
+↓  
+Data Integration / Merging  
+↓  
+Feature Engineering  
+↓  
+Exploratory Data Analysis  
+↓  
+Feature Selection  
+↓  
+Leakage Check  
+↓  
+Train / Test Split  
+↓  
+Encoding & Preprocessing  
+↓  
+Model Training  
+↓  
+Model Comparison  
+↓  
+Hyperparameter Tuning  
+↓  
+Final Evaluation  
+↓  
+Business Insights
+
+---
+
+# 🧹 1. Data Preparation
+
+The first stage was loading and inspecting all available datasets.
+
+The following steps were performed:
+
+- Loaded the individual CSV datasets.
+- Inspected dataset shapes.
+- Checked data types.
+- Examined missing values.
+- Checked duplicated records.
+- Investigated unique identifiers.
+- Converted date columns into appropriate datetime formats.
+- Checked relationships between the datasets.
+- Identified the correct keys required for merging.
+
+The datasets were then merged progressively to create a unified order-level dataset.
+
+---
+
+# 🔗 2. Data Integration
+
+Several datasets were combined using relational keys.
+
+Examples include:
 
 ```text
-is_late
-0 → On Time
-1 → Late
-
-The goal is to identify high-risk deliveries early and help the business improve logistics planning and delivery performance.
-
-Model 3 — Customer Rating Prediction
-
-A regression model that predicts the customer rating an order will receive.
-
-Target:
-
-rating
-
-The goal is to identify orders that may result in lower customer satisfaction and understand the factors associated with customer ratings.
-
-📂 Dataset
-
-The project uses an e-commerce dataset containing information about:
-
 Customers
-Orders
-Order items
-Payments
-Products
-Sellers
-Reviews
-Delivery information
-
-Multiple tables were integrated using common identifiers such as:
-
-order_id
-customer_id
-product_id
-seller_id
-
-The final order-level dataset was created after merging and aggregating the required information.
-
-🔄 Project Workflow
-Raw E-Commerce Data
-        ↓
-Data Understanding
-        ↓
-Data Cleaning
-        ↓
-Data Integration / Merge
-        ↓
-Aggregation
-        ↓
-Exploratory Data Analysis
-        ↓
-Feature Engineering
-        ↓
-Feature Selection
-        ↓
-Leakage Check
-        ↓
-Train / Test Split
-        ↓
-Encoding & Scaling
-        ↓
-Model Training
-        ↓
-Model Comparison
-        ↓
-Hyperparameter Tuning
-        ↓
-Final Evaluation
-        ↓
-Business Insights
-🧹 1. Data Cleaning
-
-The initial datasets were inspected for:
-
-Missing values
-Duplicate records
-Incorrect data types
-Invalid values
-Inconsistent timestamps
-Unnecessary columns
-
-Date columns were converted into proper datetime format to allow time-based analysis and feature engineering.
-
-Examples:
-
-order_purchase_timestamp
-order_approved_at
-order_delivered_carrier_date
-order_estimated_delivery_date
-🔗 2. Data Integration
-
-The different e-commerce tables were merged together to create a unified dataset.
-
-The main objective was to move from multiple transaction-level tables to an order-level analytical dataset.
-
-This allowed information from:
+    ↓ customer_id
 
 Orders
-Customers
+    ↓ order_id
+
 Order Items
-Payments
+    ↓ product_id / seller_id
+
 Products
-Sellers
+
+Payments
+
 Reviews
-
-to be analyzed together.
-
-📊 3. Data Aggregation
-
-Because one order can contain:
-
-Multiple products
-Multiple sellers
-Multiple payments
-
-aggregation was required before building the final order-level dataset.
-
-Examples of aggregated features include:
-
-total_items
-total_price
-total_freight
-avg_item_price
-avg_freight
-unique_products
-unique_sellers
-payment_count
-total_payment_value
-max_installments
-avg_installments
-
-This transformed multiple rows per order into a single analytical row per order.
-
-🧠 4. Feature Engineering
-
-Several business-oriented features were created from the raw data.
-
-Time Features
-purchase_hour
-purchase_day
-purchase_month
-purchase_weekday
-is_weekend
+The final merged dataset allowed us to connect:
+•	Customer information 
+•	Order information 
+•	Product information 
+•	Seller information 
+•	Payment behavior 
+•	Delivery information 
+•	Customer reviews 
+into a single analytical dataset.
+________________________________________
+⚙️ 3. Feature Engineering
+Several new features were created to make the raw data more useful for analysis and Machine Learning.
+Time-Based Features
+From order_purchase_timestamp:
+•	purchase_hour 
+•	purchase_day 
+•	purchase_month 
+•	purchase_weekday 
+•	is_weekend 
 Delivery Features
-approval_delay_hours
-estimated_delivery_days
-delivery_delay_days
-is_late
+Examples include:
+•	approval_delay_hours 
+•	delivery_delay_days 
+•	is_late 
+•	estimated_delivery_days 
 Pricing Features
-total_order_value
-freight_ratio
-avg_item_price
-Order Complexity
-order_complexity
-unique_seller_states
-multiple_seller_states
-seller_count
-
-These features were designed to represent customer behavior, order complexity, pricing, payment behavior, and delivery characteristics.
-
-📈 5. Exploratory Data Analysis
-
-EDA was performed to understand the structure and behavior of the final dataset.
-
+Examples include:
+•	total_price 
+•	total_freight 
+•	total_order_value 
+•	avg_item_price 
+•	avg_freight 
+•	freight_ratio 
+Order Complexity Features
+Examples include:
+•	total_items 
+•	unique_products 
+•	unique_sellers 
+•	unique_seller_states 
+•	multiple_seller_states 
+•	order_complexity 
+•	seller_count 
+Payment Features
+Examples include:
+•	payment_count 
+•	total_payment_value 
+•	max_installments 
+•	avg_installments 
+These engineered features provide more meaningful representations of customer orders than the raw transactional fields alone.
+________________________________________
+📊 4. Exploratory Data Analysis
+EDA was performed to understand the structure and behavior of the data before applying Machine Learning.
 The analysis included:
-
-Target distribution
-Descriptive statistics
-Feature distributions
-Correlation analysis
-Comparison between late and on-time orders
-Feature relationships
-Highly correlated features
-
-Several strong correlations were identified.
-
+•	Distribution analysis. 
+•	Missing-value investigation. 
+•	Target distribution. 
+•	Correlation analysis. 
+•	Comparison between late and on-time orders. 
+•	Numerical feature distributions. 
+•	Identification of highly correlated features. 
+•	Investigation of relationships between order value, freight, payments, and delivery behavior. 
+Important Correlations
+Several highly correlated feature pairs were identified.
+Examples:
+total_order_value ↔ total_payment_value     ≈ 1.000
+total_price ↔ total_order_value             ≈ 0.996
+total_price ↔ total_payment_value           ≈ 0.996
+max_installments ↔ avg_installments         ≈ 0.997
+total_price ↔ avg_item_price                ≈ 0.933
+total_items ↔ order_complexity              ≈ 0.885
+These relationships were considered during feature selection to reduce redundancy and improve model interpretability.
+________________________________________
+🔍 5. Feature Selection & Leakage Check
+Feature selection was performed separately for each Machine Learning task.
+For the delivery delay model, features that directly reveal the actual delivery outcome were excluded.
 For example:
-
-total_order_value ↔ total_payment_value
-Correlation ≈ 1.00
-
-
-total_price ↔ total_order_value
-Correlation ≈ 0.996
-
-
-max_installments ↔ avg_installments
-Correlation ≈ 0.997
-
-
-total_items ↔ order_complexity
-Correlation ≈ 0.885
-
-This analysis helped identify redundant features and understand relationships between variables.
-
-🔍 6. Feature Selection & Leakage Check
-
-Features were reviewed before model training to avoid using information that would not realistically be available at prediction time.
-
-For the delivery delay model, the target was:
-
-is_late
-
-Features related to actual delivery outcomes were excluded from the predictive feature set.
-
-The goal was to ensure that the model learns from information available before or around the order-processing stage rather than directly observing the future outcome.
-
-✂️ 7. Train / Test Split
-
-The data was divided into:
-
-80% Training
-20% Testing
-
-For the delivery classification model:
-
+•	Actual delivery duration 
+•	Delivery status 
+•	Other post-delivery information 
+were not used as predictive inputs.
+This is important because the model is supposed to make predictions using information available before the delivery outcome is known.
+________________________________________
+🧪 6. Train / Test Split
+The datasets were divided into training and testing sets.
+For the Delivery Delay Classification task:
 X_train: 77,182 rows
 X_test : 19,296 rows
 
-Stratified splitting was used to preserve the target class distribution.
-
-⚙️ 8. Encoding & Preprocessing
+y_train: 77,182
+y_test : 19,296
+A test size of 20% was used.
+Because the classification target was imbalanced, a stratified split was used to preserve the class distribution between training and testing sets.
+________________________________________
+🔤 7. Encoding & Preprocessing
+The preprocessing pipeline handled numerical and categorical variables separately.
 Numerical Features
-
-Numerical features were processed using:
-
-Median Imputation
-        ↓
-StandardScaler
+Numerical variables were processed using:
+•	Median imputation for missing values. 
+•	StandardScaler for normalization. 
 Categorical Features
-
 Categorical variables were processed using:
-
-Most-Frequent Imputation
-        ↓
-OneHotEncoder
-
-The preprocessing and model were combined using a Scikit-Learn Pipeline.
-
-This helped prevent data leakage during preprocessing and cross-validation.
-
-🤖 9. Model 2 — Delivery Delay Prediction
+•	Most-frequent imputation. 
+•	One-Hot Encoding. 
+Example:
+OneHotEncoder(
+    handle_unknown='ignore',
+    sparse_output=True
+)
+All preprocessing steps were integrated into Scikit-Learn Pipelines to prevent data leakage between training and testing data.
+________________________________________
+🤖 8. Model 2 — Delivery Delay Prediction
 Problem Type
-
 Binary Classification
-
-The model predicts:
-
-0 → On Time
+Target:
+is_late
+Where:
 1 → Late
-Algorithms Compared
-
-The following models were evaluated:
-
-Logistic Regression
-Logistic Regression with Class Weight Balancing
-Decision Tree
-Balanced Decision Tree
-Random Forest
-Balanced Random Forest
-KNN
-📊 Model Comparison
+0 → On Time
+The following algorithms were compared:
+•	Logistic Regression 
+•	Logistic Regression with Class Weights 
+•	Decision Tree 
+•	Decision Tree with Class Weights 
+•	Random Forest 
+•	Random Forest with Class Weights 
+•	KNN 
+________________________________________
+📈 Model Comparison
 Model	Accuracy	Precision	Recall	F1	ROC-AUC
 Logistic Regression Balanced	0.6609	0.1398	0.6173	0.2280	0.6885
 Decision Tree Balanced	0.8653	0.2055	0.2307	0.2173	0.5760
@@ -307,312 +282,243 @@ KNN	0.9137	0.2984	0.0473	0.0816	0.6061
 Random Forest	0.9198	0.8462	0.0141	0.0277	0.7434
 Random Forest Balanced	0.9195	0.9231	0.0077	0.0152	0.7424
 Logistic Regression	0.9189	0.5000	0.0038	0.0076	0.6962
-Key Observation
-
-The classification problem is highly imbalanced.
-
-Accuracy alone is therefore misleading.
-
-For example, Random Forest achieved approximately:
-
-Accuracy = 91.98%
-
-but its recall for late orders was only:
-
-Recall = 1.41%
-
-This means the model classified most orders as on-time and missed most late orders.
-
-The balanced Logistic Regression model provided substantially higher recall:
-
-Recall = 61.73%
-F1 = 0.228
-ROC-AUC = 0.688
-
-Therefore, recall and F1 are more informative than accuracy for this business problem.
-
-🎛️ 10. Hyperparameter Tuning — Model 2
-
-Hyperparameter tuning was performed on the selected Logistic Regression model using GridSearchCV.
-
-Search Space
-C:
-[0.01, 0.1, 1]
-
-
-Penalty:
-l2
-
-
-Solver:
-lbfgs
-liblinear
-
+Because the target variable was highly imbalanced, accuracy alone was not considered sufficient.
+The balanced Logistic Regression model provided substantially higher recall for late deliveries, making it more useful when the business objective is to identify as many potentially late orders as possible.
+________________________________________
+🎛️ 9. Hyperparameter Tuning — Delivery Delay Model
+Hyperparameter tuning was performed on the selected Logistic Regression model.
 A stratified 5-fold cross-validation strategy was used.
+The tuning grid included:
+C = [0.01, 0.1, 1]
 
+penalty = ['l2']
+
+solver = ['lbfgs', 'liblinear']
+The model was optimized using:
+F1-macro
+because the classification problem is imbalanced.
 Best Parameters
 C = 1
-Penalty = l2
+Penalty = L2
 Solver = liblinear
 Class Weight = balanced
-Tuned Test Performance
-Precision = 0.1388
-Recall    = 0.6128
-F1        = 0.2263
-ROC-AUC   = 0.6878
-
-The tuning confirmed that the balanced Logistic Regression model was able to identify a significantly larger proportion of late orders than the unbalanced alternatives.
-
-📉 11. Model 3 — Customer Rating Prediction
+Cross-Validation Result
+Best F1-macro (CV): 0.5054
+Test Performance
+Precision: 0.1388
+Recall:    0.6128
+F1:        0.2263
+ROC-AUC:   0.6878
+The relatively high recall indicates that the tuned model is much better at identifying late deliveries than models that optimize mainly for overall accuracy.
+________________________________________
+📉 10. Confusion Matrix & ROC Curve
+The final classification model was evaluated using:
+•	Confusion Matrix 
+•	ROC Curve 
+•	ROC-AUC 
+The confusion matrix provides a direct view of:
+•	True Positives 
+•	True Negatives 
+•	False Positives 
+•	False Negatives 
+The ROC curve evaluates the model's ability to distinguish between late and on-time orders across different classification thresholds.
+________________________________________
+⭐ 11. Model 3 — Customer Rating Prediction
 Problem Type
-
 Regression
-
-The target variable is:
-
+Target:
 rating
+The target represents the customer review score from 1 to 5.
+Rows with missing ratings were removed before training.
+The rating dataset contained:
+95,832 observations
+After preprocessing and splitting:
+X_train: 76,665
+X_test : 19,167
 
-Rows with missing ratings were removed.
-
-Algorithms Compared
-Linear Regression
-Decision Tree Regressor
-Random Forest Regressor
-KNN Regressor
+y_train: 76,665
+y_test : 19,167
+________________________________________
+🤖 Models Compared
+The following regression algorithms were evaluated:
+•	Linear Regression 
+•	Decision Tree Regressor 
+•	Random Forest Regressor 
+•	KNN Regressor 
+________________________________________
 📊 Model Comparison
 Model	MAE	RMSE	R²
 Random Forest Regressor	0.8640	1.1338	0.2149
 Linear Regression	0.9026	1.1839	0.1439
 Decision Tree Regressor	0.8862	1.1871	0.1394
 KNN Regressor	0.9178	1.2529	0.0413
-Best Model
-
-The initial best-performing model was:
-
-Random Forest Regressor
-
-with:
-
-MAE  = 0.8640
-RMSE = 1.1338
-R²   = 0.2149
-🎛️ 12. Hyperparameter Tuning — Model 3
-
-Random Forest Regressor was selected for hyperparameter tuning.
-
-Parameters Tuned
-n_estimators
-max_depth
-min_samples_split
-min_samples_leaf
-
-A small grid with 16 combinations and 3-fold cross-validation was used.
-
+Random Forest Regressor achieved the best overall performance based on both MAE and RMSE.
+________________________________________
+🎛️ 12. Hyperparameter Tuning — Rating Model
+Since Random Forest Regressor was the best-performing regression algorithm, hyperparameter tuning was applied only to this model.
+The tuning grid included:
+n_estimators = [100, 200]
+max_depth = [10, 15]
+min_samples_split = [2, 5]
+min_samples_leaf = [1, 2]
+A 3-fold cross-validation strategy was used.
+The scoring metric was:
+Negative Root Mean Squared Error
 Best Parameters
 n_estimators = 200
 max_depth = 10
 min_samples_split = 2
 min_samples_leaf = 2
-Tuned Performance
-MAE  = 0.8662
-RMSE = 1.1319
-R²   = 0.2175
+Tuned Model Performance
+CV RMSE: 1.1348
 
-The tuned model slightly improved RMSE and R² compared with the original Random Forest.
-
-📊 13. Model Evaluation
-
-The final models were evaluated using metrics appropriate for each task.
-
-Classification
-Accuracy
-Precision
-Recall
-F1 Score
-ROC-AUC
-Confusion Matrix
-ROC Curve
-
-Because of the class imbalance in delivery delays, particular attention was given to:
-
-Recall
-F1 Score
-ROC-AUC
-
-rather than relying only on accuracy.
-
-Regression
-
-The rating prediction model was evaluated using:
-
-MAE
-RMSE
-R²
-
-Additional evaluation included predicted-vs-actual analysis and residual/error analysis.
-
-🧩 14. Business Insights
+Test MAE:  0.8662
+Test RMSE: 1.1319
+Test R²:   0.2175
+The tuned Random Forest achieved a slightly lower test RMSE and a slightly higher R² than the original model.
+________________________________________
+💡 13. Key Business Insights
 Delivery Delay
-Insight 1 — Class imbalance is a major challenge
-
-The high overall accuracy of several models does not indicate good late-delivery detection.
-
-Models with high accuracy can still miss the majority of late orders.
-
+Insight 1 — Class Imbalance Is Critical
+The delivery-delay target is highly imbalanced.
+Models that achieved very high accuracy often had extremely low recall for late deliveries.
+This shows that accuracy alone can be misleading in logistics prediction.
 Business implication:
-The company should evaluate delivery-risk models using recall and F1 rather than accuracy alone.
-
-Insight 2 — Balanced Logistic Regression detects more risky deliveries
-
+The company should prioritize recall and F1-score when the goal is to proactively identify late orders.
+________________________________________
+Insight 2 — Balanced Logistic Regression Is More Useful for Risk Detection
 The balanced Logistic Regression model achieved approximately:
-
 61% Recall
-
-for late orders.
-
+on the late-delivery class.
+This means the model can identify a significantly larger proportion of potentially late orders than the unbalanced models.
 Business implication:
-This model can be used as an early-warning system to flag potentially late orders.
-
-Insight 3 — False negatives are costly
-
-A false negative occurs when an order is predicted to be on time but actually arrives late.
-
-These cases are particularly important because they represent customers who may experience unexpected delays.
-
+The model could be used as an early-warning system for potentially delayed orders.
+________________________________________
+Insight 3 — High Accuracy Does Not Necessarily Mean a Useful Model
+Random Forest achieved approximately:
+92% Accuracy
+but its recall for late orders was only around:
+1.4%
+This means the model mostly predicts the majority class.
 Business implication:
-The company could prioritize high-risk orders for proactive monitoring or customer communication.
-
-Insight 4 — Model selection should depend on business cost
-
-Random Forest achieved high precision and ROC-AUC but extremely low recall.
-
+Operational decisions should not rely on accuracy alone. Recall and F1-score are more informative when missing a late order has a business cost.
+________________________________________
+Customer Rating
+Insight 4 — Delivery Experience Is Important for Customer Satisfaction
+Customer ratings are strongly connected to the overall order and delivery experience.
+Features related to delivery timing and order characteristics provide useful information for estimating customer satisfaction.
 Business implication:
-If the goal is to catch as many late orders as possible, the balanced Logistic Regression model is more useful than simply choosing the model with the highest accuracy.
-
-⭐ Customer Rating — Business Story
-Insight 1 — Customer rating is difficult to predict
-
+Reducing delivery problems can potentially improve customer satisfaction and ratings.
+________________________________________
+Insight 5 — Random Forest Captures Non-Linear Relationships
+Random Forest outperformed Linear Regression, Decision Tree, and KNN.
+This indicates that customer ratings are influenced by more complex and non-linear interactions between order characteristics.
+Business implication:
+Tree-based models can provide better predictive performance for customer satisfaction than simple linear relationships.
+________________________________________
+Insight 6 — Rating Prediction Is a Difficult Problem
 The tuned Random Forest achieved:
-
-R² ≈ 0.218
-
-This means the available order-level features explain only a limited portion of the variation in customer ratings.
-
-Insight 2 — Rating is influenced by factors beyond the available order data
-
-Customer satisfaction can depend on factors that may not be fully represented in the dataset, such as:
-
-Product quality
-Customer expectations
-Review sentiment
-Seller behavior
-Customer-specific preferences
-
+MAE = 0.8662
+RMSE = 1.1319
+R² = 0.2175
+The relatively low R² indicates that many factors affecting customer ratings are not available in the dataset.
 Business implication:
-Additional customer and product-level information could improve future rating prediction.
-
-Insight 3 — Random Forest performed best
-
-Random Forest achieved the lowest RMSE among the tested regression algorithms.
-
-Business implication:
-The relationship between order characteristics and customer ratings is likely non-linear, making tree-based models more suitable than simple linear relationships.
-
-Insight 4 — Model performance leaves room for improvement
-
-The relatively modest R² indicates that the model should be considered a supporting decision tool rather than a precise rating predictor.
-
-Business implication:
-The business can use the model to identify broad risk patterns rather than relying on the prediction as an exact customer rating.
-
-💼 Overall Business Story
-
-This project demonstrates how Machine Learning can transform raw e-commerce transactions into actionable business intelligence.
-
-The delivery model can help the business identify potentially late orders before delivery problems become visible.
-
-The rating model can help identify orders where customer satisfaction may be at risk.
-
-Together, the models can support:
-
-Early Risk Detection
-        ↓
-Proactive Customer Communication
-        ↓
-Better Logistics Management
-        ↓
-Improved Customer Experience
-        ↓
-Better Business Decisions
+Additional information such as customer sentiment, review text, product quality, customer service interactions, and complaint history could improve future rating prediction models.
+________________________________________
+📌 14. Business Story
+This project demonstrates how an e-commerce company can use Machine Learning to move from reactive decision-making to proactive business operations.
+For delivery operations, the model can act as an early-warning system by identifying orders that are more likely to arrive late.
+Instead of waiting until a delivery becomes late, the company could prioritize high-risk orders, contact customers proactively, adjust logistics resources, and investigate operational bottlenecks.
+For customer satisfaction, the rating prediction model can help identify orders that may receive lower customer ratings.
+Combining both models could allow the business to identify high-risk orders from both an operational and customer-experience perspective.
+For example:
+High probability of late delivery
+                +
+High risk of low customer rating
+                ↓
+       High-priority order
+                ↓
+     Proactive intervention
+This can support better logistics management, improved customer experience, and more data-driven decision-making.
+________________________________________
 🛠️ Technologies Used
-Python
-Pandas
-NumPy
-Matplotlib
-Scikit-Learn
-Jupyter Notebook
-GridSearchCV
-OneHotEncoder
-StandardScaler
-Random Forest
-Logistic Regression
-Decision Trees
-KNN
+•	Python 
+•	Pandas 
+•	NumPy 
+•	Matplotlib 
+•	Scikit-Learn 
+•	Jupyter Notebook 
+•	Machine Learning 
+•	Data Cleaning 
+•	Feature Engineering 
+•	Exploratory Data Analysis 
+•	Classification 
+•	Regression 
+•	Hyperparameter Tuning 
+________________________________________
 📁 Project Structure
 E-Commerce-ML-Capstone/
 │
 ├── data/
-│   └── dataset files
+│   ├── customers.csv
+│   ├── orders.csv
+│   ├── order_items.csv
+│   ├── order_payments.csv
+│   ├── products.csv
+│   └── reviews.csv
 │
 ├── notebooks/
 │   └── E-Commerce_ML_Capstone.ipynb
 │
 ├── models/
 │   ├── delivery_delay_model.pkl
-│   └── customer_rating_model.pkl
-│
-├── reports/
-│   └── project_report.pdf
+│   └── rating_model.pkl
 │
 ├── figures/
-│   ├── eda/
-│   ├── confusion_matrix/
-│   ├── roc_curve/
-│   └── regression/
+│   ├── correlation_heatmap.png
+│   ├── confusion_matrix.png
+│   ├── roc_curve.png
+│   └── rating_predictions.png
 │
 └── README.md
-🚀 Key Takeaways
-Raw e-commerce tables were integrated into an analytical dataset.
-Aggregation transformed transaction-level data into order-level features.
-Feature engineering created meaningful business variables.
-EDA revealed important relationships and highly correlated features.
-Leakage checks were performed before modeling.
-Multiple Machine Learning algorithms were compared.
-Class imbalance significantly affected delivery-delay classification.
-Hyperparameter tuning was applied to the selected best-performing algorithms.
-The tuned Logistic Regression model provided strong recall for late orders.
-Random Forest Regressor achieved the best performance for customer rating prediction.
-Model results were translated into practical business recommendations.
-👨‍💻 Project Type
-
-Machine Learning Capstone Project
-
-End-to-end E-Commerce Analytics & Predictive Modeling
-
-📌 Future Improvements
-
-Potential future improvements include:
-
-Advanced feature engineering
-Better handling of class imbalance
-Threshold optimization for late-order detection
-Gradient Boosting models
-XGBoost / LightGBM
-Sentiment analysis of customer reviews
-Customer-level behavioral features
-Product-level quality features
-Model explainability using SHAP
-Deployment through an API or dashboard
-🏷️ Tags
-
-Machine Learning Python Scikit-Learn E-Commerce Classification Regression Data Science Feature Engineering EDA Random Forest Logistic Regression Hyperparameter Tuning
+________________________________________
+🚀 Conclusion
+This capstone project demonstrates a complete Machine Learning workflow for an e-commerce business.
+The project covered:
+✅ Data loading and inspection
+✅ Data cleaning
+✅ Missing-value analysis
+✅ Data integration and merging
+✅ Feature engineering
+✅ Exploratory Data Analysis
+✅ Feature selection
+✅ Data leakage prevention
+✅ Train/Test splitting
+✅ Encoding and preprocessing
+✅ Classification
+✅ Regression
+✅ Model comparison
+✅ Hyperparameter tuning
+✅ Confusion Matrix
+✅ ROC Curve
+✅ Model evaluation
+✅ Business interpretation
+The main lesson from the project is that model performance should always be evaluated in the context of the business problem.
+For delivery prediction, a model with high accuracy but extremely low recall is not necessarily useful. For customer rating prediction, the relatively low R² demonstrates that predictive performance depends heavily on the quality and completeness of the available business data.
+Overall, the project shows how Machine Learning can transform transactional e-commerce data into actionable business insights.
+________________________________________
+👥 Team
+This project was developed as a Machine Learning capstone project as part of our practical training.
+Team Members:
+•	Mohamed Ahmed 
+•	[Team Member 2] 
+•	[Team Member 3] 
+•	[Team Member 4] 
+________________________________________
+🎓 Training
+Completed as part of the Machine Learning training program at:
+[Training Company / Organization Name]
+________________________________________
+📬 Contact
+If you are interested in discussing the project, Machine Learning, Data Science, or e-commerce analytics, feel free to connect with me on LinkedIn.
+#MachineLearning #Python #ScikitLearn #DataScience #DataAnalytics #Classification #Regression #Ecommerce #ArtificialIntelligence #JupyterNotebook #MachineLearningProject #Capstone
