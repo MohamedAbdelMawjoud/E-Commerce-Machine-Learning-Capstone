@@ -507,18 +507,5 @@ The main lesson from the project is that model performance should always be eval
 For delivery prediction, a model with high accuracy but extremely low recall is not necessarily useful. For customer rating prediction, the relatively low R² demonstrates that predictive performance depends heavily on the quality and completeness of the available business data.
 Overall, the project shows how Machine Learning can transform transactional e-commerce data into actionable business insights.
 ________________________________________
-👥 Team
-This project was developed as a Machine Learning capstone project as part of our practical training.
-Team Members:
-•	Mohamed Ahmed 
-•	[Team Member 2] 
-•	[Team Member 3] 
-•	[Team Member 4] 
-________________________________________
-🎓 Training
-Completed as part of the Machine Learning training program at:
-[Training Company / Organization Name]
-________________________________________
-📬 Contact
-If you are interested in discussing the project, Machine Learning, Data Science, or e-commerce analytics, feel free to connect with me on LinkedIn.
+the project, Machine Learning, Data Science, or e-commerce analytics,If you are interested in discussing feel free to connect with me on LinkedIn.
 #MachineLearning #Python #ScikitLearn #DataScience #DataAnalytics #Classification #Regression #Ecommerce #ArtificialIntelligence #JupyterNotebook #MachineLearningProject #Capstone
